@@ -1,6 +1,8 @@
 import { Link, useLocation } from "react-router-dom";
 import { cn } from "@/lib/utils";
-import { LayoutGrid, BarChart2, Users } from "lucide-react";
+import { LayoutGrid, BarChart2, Users, Bell } from "lucide-react";
+import { Button } from "./button";
+import { Avatar, AvatarFallback, AvatarImage } from "./avatar";
 
 const Navigation = () => {
   const location = useLocation();
@@ -15,12 +17,17 @@ const Navigation = () => {
       <div className="max-w-[1512px] mx-auto px-6">
         <div className="flex h-16 items-center justify-between">
           <div className="flex items-center gap-8">
-            <div className="flex items-center gap-2">
-              <Users className="h-6 w-6 text-primary" />
+            <Link
+              to="/"
+              className="flex items-center gap-2 hover:opacity-90 transition-opacity"
+            >
+              <div className="bg-primary p-1.5 rounded">
+                <Users className="h-5 w-5 text-white" />
+              </div>
               <span className="text-xl font-bold">Badminton Hub</span>
-            </div>
+            </Link>
 
-            <div className="flex items-center space-x-4">
+            <div className="hidden md:flex items-center space-x-1">
               {navItems.map((item) => {
                 const Icon = item.icon;
                 return (
@@ -28,7 +35,7 @@ const Navigation = () => {
                     key={item.path}
                     to={item.path}
                     className={cn(
-                      "flex items-center gap-2 px-3 py-2 rounded-md text-sm font-medium transition-colors",
+                      "flex items-center gap-2 px-4 py-2 rounded-md text-sm font-medium transition-colors",
                       location.pathname === item.path
                         ? "bg-primary text-primary-foreground"
                         : "text-muted-foreground hover:text-primary hover:bg-secondary",
@@ -40,6 +47,18 @@ const Navigation = () => {
                 );
               })}
             </div>
+          </div>
+
+          <div className="flex items-center gap-4">
+            <Button variant="ghost" size="icon" className="relative">
+              <Bell className="h-5 w-5" />
+              <span className="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full" />
+            </Button>
+
+            <Avatar className="h-8 w-8">
+              <AvatarImage src="https://api.dicebear.com/7.x/avataaars/svg?seed=admin" />
+              <AvatarFallback>AD</AvatarFallback>
+            </Avatar>
           </div>
         </div>
       </div>
